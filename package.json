@@ -1,0 +1,30 @@
+{
+  "name": "rest-api",
+  "version": "1.0.0",
+  "description": "This is tutorial project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dev-Dy/rest-api.git"
+  },
+  "keywords": [
+    "Rest-Api",
+    "Express",
+    "MongoDB",
+    "NodeJs"
+  ],
+  "author": "Dev-Dy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dev-Dy/rest-api/issues"
+  },
+  "homepage": "https://github.com/Dev-Dy/rest-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^13.0.1",
+    "nodemon": "^2.0.7"
+  }
+}
