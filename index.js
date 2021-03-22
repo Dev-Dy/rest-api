@@ -5,7 +5,18 @@ const app = express();
 app.use(express.json())
 
 const courses = [
-    'Python', 'Java', 'JavaScript', 'C++'
+    {
+        'id' : 1,
+        'name' : 'Python'
+    },
+    {
+        'id' : 2,
+        'name' : 'JavaScript'
+    },
+    {
+        'id' : 3,
+        'name' : 'Java'
+    }
 ]
 app.get('/', (req, res) => {
     res.send("Hello World");
@@ -25,10 +36,7 @@ app.post('/api/courses', (req,res) =>{
     //validation of api
     const result = validateCourse(req.body)
     const { error } = validateCourse(req.body)
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message);
 
     const course = {
         id : courses.length + 1,
@@ -47,18 +55,24 @@ app.put('/api/courses/:id', (req, res) => {
     //validate
     const result = validateCourse(req.body);
     //if invalid, return 400 - Bad request
-    if (result.error) {
-        res.status(400).send(result.error.details[0].message);
-        return
-    }
+    if (result.error) return res.status(400).send(result.error.details[0].message);
     
     course.name = req.body.name;
     res.send(course)
 });
 
+app.get('/api/courses/:id', (req,res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if(!course) res.status(400).send('Not found')
+    //Delete
+    const index = courses.indexOf(course)
+    courses.splice(index, 1);
+    res.send(course);
+});
+
 function validateCourse(course) {
     const schema = {
-        name : Joi.string.min(3).required()
+        name : Joi.string().min(3).required()
     };
     
     return Joi.validate(req.body, schema);
